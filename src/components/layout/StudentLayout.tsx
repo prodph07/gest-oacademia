@@ -50,13 +50,13 @@ export default function StudentLayout() {
   const navItems = [
     { name: 'Início', path: '/app/dashboard', icon: LayoutDashboard },
     { name: 'Financeiro', path: '/app/financial', icon: CreditCard },
-    { name: 'Grade de Aulas', path: '/app/classes', icon: CalendarDays },
+    { name: 'Aulas', path: '/app/classes', icon: CalendarDays },
   ];
 
   return (
     <div className="min-h-screen bg-surface-50 flex flex-col md:flex-row">
-      {/* Sidebar */}
-      <aside className="w-full md:w-64 bg-white border-r border-surface-200 flex flex-col">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex w-64 bg-white border-r border-surface-200 flex-col h-screen sticky top-0">
         <div className="p-6">
           <div className="flex items-center gap-3">
             <div className="bg-primary-600 p-2 rounded-lg">
@@ -69,7 +69,7 @@ export default function StudentLayout() {
           </div>
         </div>
 
-        <nav className="flex-1 px-4 space-y-1 overflow-x-auto flex md:flex-col md:overflow-visible">
+        <nav className="flex-1 px-4 space-y-1">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             const Icon = item.icon;
@@ -79,7 +79,7 @@ export default function StudentLayout() {
                 key={item.name}
                 to={item.path}
                 className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all min-w-[140px] md:min-w-0",
+                  "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all",
                   isActive 
                     ? "bg-primary-50 text-primary-700" 
                     : "text-surface-600 hover:bg-surface-50 hover:text-surface-900"
@@ -92,16 +92,35 @@ export default function StudentLayout() {
           })}
         </nav>
 
-        <div className="p-4 border-t border-surface-200 mt-auto hidden md:block">
+        <div className="p-4 border-t border-surface-200 mt-auto">
           <button
             onClick={handleLogout}
             className="flex items-center gap-3 px-3 py-2 w-full rounded-lg text-sm font-medium text-surface-600 hover:bg-red-50 hover:text-red-600 transition-colors"
           >
-            <LogOut className="h-5 w-5 text-surface-400 group-hover:text-red-500" />
+            <LogOut className="h-5 w-5 text-surface-400" />
             Sair da Conta
           </button>
         </div>
       </aside>
+
+      {/* Mobile Top Bar */}
+      <header className="md:hidden bg-white border-b border-surface-200 px-4 py-3 flex items-center justify-between sticky top-0 z-10">
+        <div className="flex items-center gap-2">
+          <div className="bg-primary-600 p-1.5 rounded-lg">
+            <Dumbbell className="h-4 w-4 text-white" />
+          </div>
+          <div>
+            <span className="text-base font-bold text-surface-900">Portal do Aluno</span>
+            {gymName && <p className="text-[10px] text-primary-600 font-semibold leading-none">{gymName}</p>}
+          </div>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="p-2 text-surface-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors"
+        >
+          <LogOut className="h-5 w-5" />
+        </button>
+      </header>
 
       {/* Main Content */}
       <main className="flex-1 overflow-auto">
@@ -110,15 +129,31 @@ export default function StudentLayout() {
         </div>
       </main>
 
-      {/* Mobile Logout (bottom right) */}
-      <div className="md:hidden fixed bottom-4 right-4 z-50">
-        <button
-          onClick={handleLogout}
-          className="bg-red-600 text-white p-3 rounded-full shadow-lg"
-        >
-          <LogOut className="h-5 w-5" />
-        </button>
-      </div>
+      {/* Mobile Bottom Navigation */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-surface-200 z-20 pb-safe">
+        <div className="flex justify-around items-center h-16">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            const Icon = item.icon;
+            
+            return (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={cn(
+                  "flex flex-col items-center justify-center gap-0.5 px-3 py-1 rounded-lg transition-colors flex-1",
+                  isActive 
+                    ? "text-primary-600" 
+                    : "text-surface-400"
+                )}
+              >
+                <Icon className="h-5 w-5" />
+                <span className="text-[10px] font-semibold">{item.name}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
     </div>
   );
 }
