@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Building2, Wallet, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Building2, Wallet, Settings, LogOut, X } from 'lucide-react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { supabase } from '../../lib/supabase';
@@ -15,14 +15,28 @@ const navigation = [
   { name: 'Configurações', href: '/admin/settings', icon: Settings },
 ];
 
-export default function AdminSidebar() {
+interface AdminSidebarProps {
+  onClose?: () => void;
+}
+
+export default function AdminSidebar({ onClose }: AdminSidebarProps) {
   const location = useLocation();
 
   return (
-    <div className="flex flex-col w-64 bg-surface-900 border-r border-surface-800 h-screen sticky top-0 text-white">
-      <div className="flex items-center justify-center h-16 border-b border-surface-800 px-4 bg-surface-950">
-        <span className="text-xl font-bold tracking-tight text-white">SaaS Admin</span>
-        <span className="ml-2 text-xs bg-primary-600 px-2 py-0.5 rounded-full text-white font-medium">MASTER</span>
+    <div className="flex flex-col w-64 bg-surface-900 border-r border-surface-800 h-full text-white">
+      <div className="flex items-center justify-between h-16 border-b border-surface-800 px-4 bg-surface-900">
+        <div className="flex items-center">
+          <span className="text-xl font-bold tracking-tight text-white">SaaS Admin</span>
+          <span className="ml-2 text-xs bg-primary-600 px-2 py-0.5 rounded-full text-white font-medium">MASTER</span>
+        </div>
+        {onClose && (
+          <button 
+            onClick={onClose} 
+            className="md:hidden p-2 text-surface-400 hover:text-white rounded-lg hover:bg-surface-800"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        )}
       </div>
       
       <div className="flex-1 py-6 px-3 space-y-1 overflow-y-auto">
@@ -35,6 +49,7 @@ export default function AdminSidebar() {
             <Link
               key={item.name}
               to={item.href}
+              onClick={onClose}
               className={cn(
                 'flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-colors group',
                 isActive
@@ -55,7 +70,7 @@ export default function AdminSidebar() {
         })}
       </div>
 
-      <div className="p-4 border-t border-surface-800 bg-surface-950">
+      <div className="p-4 border-t border-surface-800 bg-surface-900">
         <button 
           onClick={async () => await supabase.auth.signOut()}
           className="flex items-center w-full px-3 py-2 text-sm font-medium text-surface-400 rounded-lg hover:bg-surface-800 hover:text-white transition-colors"
