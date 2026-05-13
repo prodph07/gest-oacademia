@@ -43,7 +43,7 @@ export default function StudentManagement() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   
   // Gym data state for Pagar.me
-  const [gymData, setGymData] = useState<{ id: string, pagarme_recipient_id: string } | null>(null);
+  const [gymData, setGymData] = useState<{ id: string, pagarme_recipient_id: string, monthly_fee_cents: number } | null>(null);
 
   // Form states
   const [isEditing, setIsEditing] = useState(false);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Wallet, ArrowUpRight, ArrowDownRight, Clock, Loader2, AlertCircle, CheckCircle, Banknote } from 'lucide-react';
+import { Wallet, ArrowUpRight, Clock, Loader2, AlertCircle, CheckCircle, Banknote } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
 export default function GymWithdrawals() {

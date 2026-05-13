@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
-import { CreditCard, Loader2, CheckCircle, Clock, AlertCircle, QrCode, X, CheckCircle2, Link as LinkIcon, Send } from 'lucide-react';
+import { CreditCard, Loader2, CheckCircle, Clock, AlertCircle, QrCode, X, CheckCircle2, Link as LinkIcon } from 'lucide-react';
 
 export default function StudentFinancial() {
   const [loading, setLoading] = useState(true);

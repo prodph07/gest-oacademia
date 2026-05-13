@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { Calendar as CalendarIcon, Clock, Users, User as UserIcon, Loader2 } from 'lucide-react';
-import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-const cn = (...inputs: (string | undefined | null | false)[]) => {
-  return twMerge(clsx(inputs));
-};
 
 export default function StudentClasses() {
   const [loading, setLoading] = useState(true);

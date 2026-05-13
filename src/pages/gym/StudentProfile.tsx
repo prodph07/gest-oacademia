@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { ArrowLeft, User, Phone, Calendar, CreditCard, Loader2, ShieldCheck, FileText, CheckCircle, Clock, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Phone, Calendar, CreditCard, Loader2, ShieldCheck, FileText, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
